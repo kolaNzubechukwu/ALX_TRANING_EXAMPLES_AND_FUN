@@ -1,0 +1,8 @@
+	AN ARRAY DECAY
+we say an array decayed when an aarry chances to a pointer
+```
+	#include <stdio.h>
+	
+	int main()
+	{
+		
