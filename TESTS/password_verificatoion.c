@@ -11,12 +11,14 @@ int main()
  	int i = checkpassword(password);
 	if (i == 1) 
 		printf("password :%s ✅\n", password);
+	else
+		printf("not correct\n");
 	return (0);
 }
 
 int checkpassword(char *password)
 {
-	char correct_password[] = "fransiscz";
+	char correct_password[] = "fransisco";
 	for (int i = 0; i <= strlen(correct_password) - 1; i++)
 	{
 		if (password[i] != correct_password[i])
