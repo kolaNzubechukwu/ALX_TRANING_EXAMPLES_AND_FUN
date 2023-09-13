@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define INITIAL_BUFFER_SIZE 128
+
+char *getline_custom() {
+    char *line = NULL;
+    size_t buffer_size = INITIAL_BUFFER_SIZE;
+    size_t line_length = 0;
+    int c;
+
+    line = (char *)malloc(buffer_size * sizeof(char));
+    if (!line) {
+        perror("Memory allocation error");
+        exit(EXIT_FAILURE);
+    }
+
+    while (1) {
+        c = getchar();
+
+        if (c == EOF || c == '\n') {
+            line[line_length] = '\0';
+            break;
+        } else {
+            line[line_length] = (char)c;
+        }
+
+        line_length++;
+
+        if (line_length >= buffer_size) {
+            buffer_size *= 2;
+            line = (char *)realloc(line, buffer_size * sizeof(char));
+            if (!line) {
+                perror("Memory reallocation error");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    return line;
+}
+
+int main() {
+    printf("Enter a line of text: ");
+    char *input_line = getline_custom();
+    printf("You entered: %s\n", input_line);
+    free(input_line);
+    return 0;
+}
+
+
+
+
+
+
+
+
+			EXPLAIN1
+
+
+
+
+Certainly! This code is a simple program that allows you to type in a line of text, press Enter, and then it shows you what you typed. Here's a simplified explanation:
+
+1. You run the program, and it says "Enter a line of text: " to prompt you for input.
+2. You type in some text, like "Hello, world!", and press Enter.
+3. The program then reads the text you typed.
+4. After reading the text, it displays what you typed, so it might show "You entered: Hello, world!" on the screen.
+
+Now, let's look at how it works behind the scenes:
+
+- It defines a function called `getline_custom`, which is like a special tool for reading what you typed.
+- When you type something and press Enter, the `getline_custom` function starts storing what you typed in a memory space.
+- If you type a lot of text, it makes sure it has enough space in memory to store it all. If it needs more space, it gets more.
+- When you're done typing and press Enter, it marks the end of what you typed with a special character (a bit like putting a flag at the end).
+- Then, it shows you what you typed.
+
+That's basically what this code does. It's a simple program to read and show text you type.
+
+
+
+
+
+
+					EXPLAIN LAY MAN 
+
+
+
+
+
+Of course, let's break down the code line by line in simpler terms:
+
+1. `#include <stdio.h>` and `#include <stdlib.h>`: These lines include special tools that the program needs to work with input and output and manage memory.
+
+2. `#define INITIAL_BUFFER_SIZE 128`: This is like giving a name to a number. It says that `INITIAL_BUFFER_SIZE` is 128, which is an initial size for storing what you type.
+
+3. `char *getline_custom() {`: This line says, "I'm creating a special tool named `getline_custom` that knows how to read lines of text."
+
+4. `char *line = NULL;`: This line says, "I'm getting ready to hold the text you type, but right now, it's empty."
+
+5. `size_t buffer_size = INITIAL_BUFFER_SIZE;`: This line sets up a place to keep track of how much space we have to store the text. It starts with 128 characters.
+
+6. `size_t line_length = 0;`: This is like a counter that keeps track of how many characters we've typed so far. It starts at 0 because we haven't typed anything yet.
+
+7. `int c;`: This is like an empty box where we can put each character we type one at a time.
+
+8. `line = (char *)malloc(buffer_size * sizeof(char));`: This line says, "Okay, let's get a place in memory to store what you type." It's like getting a blank sheet of paper.
+
+9. `if (!line) { /* ... */ }`: This is like a safety net. If we can't get that sheet of paper (run out of memory), we stop and show an error message.
+
+10. `while (1) {`: This says, "Now, let's start reading what you type, and we'll keep doing it until we're done."
+
+11. `c = getchar();`: This takes one character that you type and puts it in the box (the `c` variable).
+
+12. `if (c == EOF || c == '\n') { /* ... */ }`: This checks if what you typed is the "end of file" or the "Enter" key, which means you're done typing.
+
+13. `line[line_length] = '\0';`: This puts a special mark at the end of what you typed, like drawing a line under it.
+
+14. `break;`: This says, "We're done reading what you typed, so we can stop now."
+
+15. `else { /* ... */ }`: If you didn't press Enter yet, it adds what you typed to the sheet of paper (the `line`).
+
+16. `line_length++;`: It keeps track of how many characters you've typed so far.
+
+17. `if (line_length >= buffer_size) { /* ... */ }`: If you run out of space on the sheet of paper, it gets a bigger sheet (it's like getting a larger piece of paper if you need more room).
+
+18. `line = (char *)realloc(line, buffer_size * sizeof(char));`: This gets the bigger sheet (if needed).
+
+19. `if (!line) { /* ... */ }`: Again, if there's a problem getting a bigger sheet, it stops and shows an error.
+
+20. `return line;`: Finally, when you're done typing and it has all the text on the sheet of paper, it gives you the sheet of paper (the text you typed) back.
+
+21. `int main() {`: This is where the main action starts.
+
+22. `printf("Enter a line of text: ");`: This says, "Show a message on the screen to ask you to type something."
+
+23. `char *input_line = getline_custom();`: This is where you use the special tool `getline_custom` to read what you typed and store it in a box (the `input_line` variable).
+
+24. `printf("You entered: %s\n", input_line);`: This says, "Show what you typed on the screen."
+
+25. `free(input_line);`: This is like saying, "I'm done with the sheet of paper (the text you typed), so I'll give it back to the computer."
+
+26. `return 0;`: Finally, it's like saying, "We're all done, and everything went well!" 
